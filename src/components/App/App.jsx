@@ -1,4 +1,5 @@
-import { useSelector } from 'react-redux';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../Form';
 import ContactList from '../ContactList';
 import Filter from '../Filter';
@@ -7,11 +8,17 @@ import GlobalStyle from '../GlobalStyle';
 import Title from './App.styled';
 import { Loader } from "components/Loader";
 import { getError, getIsLoading } from 'redux/selectors';
+import { fetchContacts } from "redux/operations";
 
 
 const App = () => {
     const isLoading = useSelector(getIsLoading);
   const error = useSelector(getError);
+    const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch])
   return (
     <Layout>
       
