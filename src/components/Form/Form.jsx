@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import toast, { Toaster } from 'react-hot-toast';
-import { nanoid } from 'nanoid';
 import { getContacts } from 'redux/selectors';
-import { addContacts } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { FormStyled, FormLabel, FormInput, Button } from './Form.styled';
 
 const Form = () => {
@@ -31,10 +30,9 @@ const Form = () => {
       return toast.error(`${name} is already in contacts.`);
     } else {
       dispatch(
-        addContacts({
-          id: nanoid(),
-          name: name,
-          number: number,
+        addContact({
+          name,
+          phone: number,
         })
       );
       reset();
