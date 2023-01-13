@@ -7,17 +7,18 @@ import Layout from '../Layout';
 import GlobalStyle from '../GlobalStyle';
 import Title from './App.styled';
 import { Loader } from 'components/Loader';
-import { getError, getIsLoading } from 'redux/selectors';
+import { selectError, selectIsLoading } from 'redux/selectors';
 import { fetchContacts } from 'redux/operations';
 
 const App = () => {
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
+  
   return (
     <Layout>
       <Title>Phonebook</Title>
@@ -26,7 +27,7 @@ const App = () => {
       <Filter />
       {isLoading && !error && <Loader />}
       {error && <p>{error}</p>}
-      <ContactList />
+      {!isLoading && <ContactList />}
       <GlobalStyle />
     </Layout>
   );
